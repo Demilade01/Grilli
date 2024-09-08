@@ -121,3 +121,27 @@ addEventOnElements([heroSliderNextBtn, heroSliderPrevBtn], "mouseover", function
 addEventOnElements([heroSliderNextBtn, heroSliderPrevBtn], "mouseover", autoSlide);
 
 window.addEventListener("load", autoSlide);
+
+
+// PARALLAX EFFECT
+
+const parallaxItems = document.querySelectorAll('[data-parallax-item]');
+
+window.addEventListener("mousemove", function (event) {
+  // Calculate the x and y movement based on mouse position
+  let x = ((event.clientX / window.innerWidth) * 10) - 5;
+  let y = ((event.clientY / window.innerHeight) * 10) - 5;
+
+  // Reverse the direction of x and y
+  x = -x;
+  y = -y;
+
+  // Apply transformation to each parallax item based on its speed
+  for (let i = 0; i < parallaxItems.length; i++) {
+    const speed = Number(parallaxItems[i].dataset.parallaxSpeed);
+    const offsetX = x * speed;
+    const offsetY = y * speed;
+    parallaxItems[i].style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0px)`;
+  }
+});
+
